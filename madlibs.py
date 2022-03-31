@@ -2,7 +2,11 @@
 
 from random import choice
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for
+
+from random import choices
+
+from words import adjectives
 
 # "__name__" is a special Python variable for the name of the current module.
 # Flask wants to know this to know what any imported things are relative to.
@@ -12,6 +16,10 @@ AWESOMENESS = [
     'awesome', 'terrific', 'fantastic', 'neato', 'fantabulous', 'wowza',
     'oh-so-not-meh', 'brilliant', 'ducky', 'coolio', 'incredible', 'wonderful',
     'smashing', 'lovely',
+]
+
+ADJECTIVES = [
+    
 ]
 
 
@@ -42,8 +50,28 @@ def greet_person():
                            compliment=compliment)
 
 
+@app.route('/game')
+def show_madlib_form():
+    playing = request.args.get('will_play')
+    if playing == 'Yes':
+        adj_list = choices(adjectives, k=10)
+        return render_template('game.html', adjectives=adj_list)
+    return render_template('goodbye.html')
+
+
+@app.route('/madlib')
+def show_madlib():
+    player_choices = {
+        'color': request.args.get('color'),
+        'noun': request.args.get('noun'),
+        'person': request.args.get('person'),
+        'adjective': request.args.get('adjective')
+    }
+    return render_template('madlib.html', choices=player_choices)
+
+
 if __name__ == '__main__':
     # Setting debug=True gives us error messages in the browser and also
     # "reloads" our web app if we change the code.
 
-    app.run(debug=True, host="0.0.0.0")
+    app.run(port=5005, debug=True, host="0.0.0.0")

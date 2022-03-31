@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+  <title>Goodbye</title>
+</head>
+<body>
+    <main>
+      <section>
+       <form action="{{ url_for('show_madlib') }}" name="madlib">
+            color: <input type="text" name="color"><br>
+            noun: <input type="text" name="noun"><br>
+            person: <input type="text" name="person"><br>
+            adjective: <select name="adjective">
+                {% for adj in adjectives %}
+                <option value="{{ adj }}">{{ adj }}</option>
+                {% endfor %}
+            </select><br><br>
+            <button>Generate Madlib</button>
+       </form>
+      </section>
+    </main>
+</body>
+</html>

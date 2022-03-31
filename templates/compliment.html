@@ -4,6 +4,20 @@
   <title>A Compliment</title>
 </head>
 <body>
-    Hi {{ person }}! I think you're {{ compliment }}!
+    <main>
+      <section>
+        <h1>Hello {{ person }}!</h1>
+        <h2>Would you like to play a game? It would make you totally {{ compliment }}!</h2>
+        <form action="{{ url_for('show_madlib_form') }}" name="play-game">
+          <input type="radio" name="will_play" value="Yes">
+          <label for="Yes">Heck Yes</label>
+          <br>
+          <input type="radio" name="will_play" value="No">
+          <label for="No">No Way</label>
+          <br><br>
+          <button>Go!</button>
+        </form>
+      </section>
+    </main>
 </body>
 </html>
